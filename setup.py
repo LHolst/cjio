@@ -4,19 +4,41 @@ import cjio
 
 CURRENT_DIR = Path(__file__).parent
 
+# Package meta-data.
+NAME = 'cjio'
+DESCRIPTION = 'CLI to process and manipulate CityJSON files.'
+URL = 'https://github.com/tudelft3d/cjio'
+EMAIL = 'h.ledoux@tudelft.nl, b.dukai@tudelft.nl'
+AUTHOR = 'Hugo Ledoux, Balázs Dukai'
+REQUIRES_PYTHON = '>=3.5.0'
+
+# What packages are required for this module to be executed?
+REQUIRED = [
+    'Click',
+    'jsonschema',
+    'jsonref'
+]
+
+# What packages are optional?
+EXTRAS = {
+    'export': ['mapbox-earcut', 'numpy'],
+    'reproject': ['pyproj'],
+    'api': ['pandas']
+}
+
 with open("README.rst", "r") as fh:
     long_description = fh.read()
 
 setup(
-    name='cjio',
+    name=NAME,
     version=cjio.__version__,
-    description='CLI to process and manipulate CityJSON files',
+    description=DESCRIPTION,
     long_description=long_description,
     long_description_content_type="text/x-rst",
-    url='https://github.com/tudelft3d/cjio',
-    author='Hugo Ledoux, Balázs Dukai',
-    author_email='h.ledoux@tudelft.nl, b.dukai@tudelft.nl',
-    python_requires='~=3.5',
+    url=URL,
+    author=AUTHOR,
+    author_email=EMAIL,
+    python_requires=REQUIRES_PYTHON,
     packages=['cjio'],
     package_data={'cjio': ['schemas/0.9/*', 'schemas/1.0.0/*', 'schemas/1.0.1/*']},
     # include_package_data=True,
@@ -32,11 +54,8 @@ setup(
         'Operating System :: MacOS :: MacOS X',
         'Operating System :: Microsoft :: Windows'
     ],
-    install_requires=[
-        'Click',
-        'jsonschema',
-        'jsonref'
-    ],
+    install_requires=REQUIRED,
+    extras_require=EXTRAS,
     entry_points='''
         [console_scripts]
         cjio=cjio.cjio:cli
